@@ -1,3 +1,5 @@
+use crate::Transmission::Automatic;
+use crate::Age::Old;
 use crate::Age::New;
 use crate::Transmission::Manual;
 
@@ -23,7 +25,8 @@ enum Age {
 }
 
 fn car_quality(miles: u32) -> (Age, u32) {
-    let quality = (New, miles);
+    let age = if miles == 0 { New } else { Old };
+    let quality = (age, miles);
     quality
 }
 
@@ -48,4 +51,8 @@ fn main() {
     let mut engine: Transmission = Manual;
     car = car_factory(colors[0].to_string(), engine, true, 0);
     println!("Car order1: {:?}", car);
+
+    engine = Automatic;
+    car = car_factory(colors[1].to_string(), engine, true, 10);
+    println!("Car order2: {:?}", car);
 }
